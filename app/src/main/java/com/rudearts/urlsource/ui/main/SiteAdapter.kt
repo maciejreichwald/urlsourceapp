@@ -17,10 +17,15 @@ class SiteAdapter(context:Context) : ArrayAdapter<Site>(context, R.layout.site_i
     private var items: List<Site> = ArrayList()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val site = getItem(position)
-        val binding = createViewBinding()
-        binding.site = site
+        val binding = getBinding(convertView).apply {
+            site = getItem(position)
+        }
         return binding.root
+    }
+
+    internal fun getBinding(convertView: View?) = when(convertView) {
+        null -> createViewBinding()
+        else -> updateViewBinding(convertView) ?: createViewBinding()
     }
 
     override fun getItem(position:Int) = items[position]
