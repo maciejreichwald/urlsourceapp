@@ -1,0 +1,25 @@
+buildscript {
+    ext.kotlin_version = '1.2.21'
+    ext.build_tools_version = '3.2.0-alpha01'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$build_tools_version"
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Url Source Loader</string>
+    <string name="unknown">Unknown</string>
+    <string name="none">None</string>
+    <string name="loading_error">Error during loading website source occurred</string>
+    <string name="no_source">No source loaded</string>
+    <string name="address_hint">Type website address</string>
+    <string name="load_source">Load source</string>
+</resources>
