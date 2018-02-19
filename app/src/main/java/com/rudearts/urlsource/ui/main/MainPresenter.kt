@@ -2,6 +2,7 @@ package com.rudearts.urlsource.ui.main
 
 import com.rudearts.urlsource.domain.SiteLoadable
 import com.rudearts.urlsource.domain.UrlHintsLoadable
+import com.rudearts.urlsource.extentions.threadToAndroid
 import com.rudearts.urlsource.model.LoadingState
 import com.rudearts.urlsource.model.local.Site
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,8 +18,7 @@ class MainPresenter @Inject constructor(
         view.updateLoadingState(LoadingState.LOADING)
 
         siteUseCase.loadSite(url)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .threadToAndroid()
                 .subscribe(
                         { onItemLoaded(it)},
                         {onError(it)})
@@ -26,8 +26,7 @@ class MainPresenter @Inject constructor(
 
     override fun loadUrlHints(urlPart: String) {
         hintsUseCase.loadUrlHints(urlPart)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .threadToAndroid()
                 .subscribe(
                         { onHintsLoaded(it)},
                         { onHintsError(it) }

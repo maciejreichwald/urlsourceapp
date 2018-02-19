@@ -12,25 +12,29 @@ import com.rudearts.urlsource.model.local.Site
 
 class SiteAdapter(context:Context) : ArrayAdapter<Site>(context, R.layout.site_item) {
 
-    private var sites:List<Site> = ArrayList()
-    private val inflater = LayoutInflater.from(context)
+    private val inflater by lazy {  LayoutInflater.from(context) }
+
+    private var items: List<Site> = ArrayList()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val site = sites[position]
+        val site = getItem(position)
         val binding = createViewBinding()
         binding.site = site
         return binding.root
     }
 
-    override fun getItem(position:Int) = sites[position]
+    override fun getItem(position:Int) = items[position]
 
-    override fun getCount() = sites.size
+    override fun getCount() = items.size
 
     fun updateItems(items:List<Site>) {
-        sites = items
+        this.items = items
         notifyDataSetChanged()
     }
 
     internal fun createViewBinding(): SiteItemBinding =
             DataBindingUtil.inflate(inflater, R.layout.site_item, null, false)
+
+    internal fun updateViewBinding(convertView: View) =
+            DataBindingUtil.getBinding<SiteItemBinding>(convertView)
 }
